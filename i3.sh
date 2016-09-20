@@ -36,6 +36,10 @@ sudo apt-get install -y playonlinux steam
 wget -P /tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 
+# google play music desktop player - gpmdp
+wget -P /tmp https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases/download/v3.6.0/google-play-music-desktop-player_3.6.0_amd64.deb
+sudo dpkg -i /tmp/google-play-music-desktop-player_3.6.0_amd64.deb
+
 zsh
 
 # zgen
