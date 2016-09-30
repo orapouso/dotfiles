@@ -27,7 +27,7 @@ sudo apt-get install -y chromium-browser vim vlc easytag cifs-utils zsh ubuntu-r
 sudo apt-get install -y i3 feh rofi xbacklight youtube-viewer
 
 # dev
-sudo apt-get install -y mysql-server mysql-workbench meld git gitg git-flow python-software-properties python python-virtualenv mongodb-server sublime-text-installer
+sudo apt-get install -y mysql-server mysql-workbench meld git gitg git-flow python-software-properties python-virtualenv mongodb-server sublime-text-installer
 
 # gaming
 sudo apt-get install -y playonlinux steam
@@ -39,6 +39,9 @@ sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 # google play music desktop player - gpmdp
 wget -P /tmp https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases/download/v3.6.0/google-play-music-desktop-player_3.6.0_amd64.deb
 sudo dpkg -i /tmp/google-play-music-desktop-player_3.6.0_amd64.deb
+
+# hplip
+# download from http://hplipopensource.com/hplip-web/install/install/index.html
 
 zsh
 
