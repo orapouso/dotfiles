@@ -21,7 +21,7 @@ echo 'steam steam/question select I AGREE' | sudo debconf-set-selections
 echo 'steam steam/licence note ' | sudo debconf-set-selections
 
 # general
-sudo apt-get install -y chromium-browser vim vlc easytag cifs-utils zsh ubuntu-restricted-extras
+sudo apt-get install -y chromium-browser vim vlc easytag cifs-utils zsh ubuntu-restricted-extras variety
 
 # i3
 sudo apt-get install -y i3 feh rofi xbacklight youtube-viewer
