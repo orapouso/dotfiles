@@ -15,7 +15,7 @@ echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select t
 echo 'steam steam/question select I AGREE' | sudo debconf-set-selections
 echo 'steam steam/licence note ' | sudo debconf-set-selections
 
- general
+# general
 sudo apt install -y \
 	chromium-browser \
 	vim vlc \
@@ -34,11 +34,21 @@ sudo apt install -y \
 
 # dev
 sudo apt install -y \
+	build-essential \
 	git gitg git-flow meld \
 	mysql-workbench \
 	python-software-properties \
 	python-virtualenv
-	python-pip
+	python-pip \
+	docker
+
+git clone git@github.com:orapouso/dotfiles.git $HOME
+
+# docker
+dotfiles/install_docker_ubuntu.sh
+
+#i3-gaps
+dotfiles/install_i3-gaps.sh
 
 # visual studio code
 sudo snap install --classic vscode
