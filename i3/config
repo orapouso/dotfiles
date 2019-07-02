@@ -94,8 +94,8 @@ bindsym $mod+Shift+Tab workspace prev_on_output
 # set $ws6 "6"
 # set $ws7 "7"
 # set $ws8 "8: &#xf232; social"
-# set $ws9 "9: &#xf025; media"
-# set $ws10 "10: &#xf1b6; steam"
+# set $ws9 "9: &#xf1b6; steam"
+# set $ws10 "10: &#xf025; media"
 
 set $ws1 "1"
 set $ws2 "2"
@@ -114,8 +114,8 @@ workspace $ws3 output $notebook
 workspace $ws4 output $HDMI1
 workspace $ws5 output $HDMI1
 workspace $ws8 output $notebok
-workspace $ws9 output $notebok
-workspace $ws10 output $HDMI1
+workspace $ws9 output $HDMI1
+workspace $ws10 output $notebok
 
 gaps inner 5
 gaps outer 5
@@ -123,8 +123,9 @@ for_window [class="^.*"] border pixel 2
 
 assign [class="^Firefox$" title="^(?!File Upload)"] $ws1
 assign [class="Firefox Developer Edition" title="^(?!File Upload)"] $ws2
-assign [class="Franz"] $ws8
-assign [class="Spotify"] $ws9
+assign [class="Chromium"] $ws8
+assign [class="Steam"] $ws9
+assign [class="Spotify"] $ws10
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -199,6 +200,19 @@ mode  $power_control {
 bindsym $mod+n mode $power_control
 ## END MODES
 
+# MUSIC MODE
+set $music_control "[t]oggle [p]lay [s]top"
+mode  $music_control {
+    bindsym t exec playerctl play-pause; mode "default"
+    bindsym p exec playerctl play; mode "default"
+    bindsym s exec playerctl pause; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode $music_control
+## END MUSIC MODE
+
 ## STYLING
 font pango:monospace 8
 # class                 border  backgr. text    indicator
@@ -211,7 +225,7 @@ client.urgent           #383a3b #383a3b #ee0000 #383a3b
 # finds out, if available)
 # bar {
 #         font pango:SFNS Display Bold, FontAwesome 8
-
+#
 #         position top
 #         tray_output $notebook
 #         # strip_workspace_numbers yes
@@ -223,7 +237,7 @@ client.urgent           #383a3b #383a3b #ee0000 #383a3b
 #                  background #282828
 #                  statusline #ebdbb2
 #                  separator  #756d59
-
+#
 #                                     #border backgr. text
 #                  focused_workspace  #676d3d #676d3d #ebdbb2
 #                  active_workspace   #323232 #5f676a #ebdbb2
@@ -236,12 +250,15 @@ client.urgent           #383a3b #383a3b #ee0000 #383a3b
 exec --no-startup-id nm-applet #network manager
 # changed for variety app
 #exec_always --no-startup-id feh --bg-fill /home/rraposo/Pictures/yuri-shwedoff-white-castle-3-for-internet.jpg
+exec --no-startup-id compton
+exec --no-startup-id mpd
 exec --no-startup-id variety
 #exec_always --no-startup-id xrandr --output $HDMI1 --auto --right-of $notebook
 #exec_always --no-startup-id xrandr --output $HDMI1 --mode 1920x1080 --left-of $notebook
 
 exec --no-startup-id $browser
-exec --no-startup-id firefox-developer
-exec --no-startup-id franz
+exec --no-startup-id firefox-developer-edition
+exec --no-startup-id chromium
+#exec --no-startup-id franz
 exec_always --no-startup-id $HOME/dotfiles/polybar/launch.sh
 exec_always --no-startup-id $HOME/dotfiles/sound/start.sh

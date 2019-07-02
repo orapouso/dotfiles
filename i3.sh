@@ -18,7 +18,7 @@ echo 'steam steam/licence note ' | sudo debconf-set-selections
 # general
 sudo apt install -y \
 	chromium-browser \
-	vim vlc \
+	vim vlc curl \
 	easytag \
 	cifs-utils \
 	ubuntu-restricted-extras \
@@ -29,18 +29,16 @@ sudo apt install -y \
 sudo apt install -y \
 	i3 zsh feh \
 	rofi \
-	xbacklight \
-	youtube-viewer
+	xbacklight
 
 # dev
 sudo apt install -y \
 	build-essential \
 	git gitg git-flow meld \
 	mysql-workbench \
-	python-software-properties \
-	python-virtualenv
-	python-pip \
-	docker
+	software-properties-common \
+	python-virtualenv \
+	python-pip
 
 git clone git@github.com:orapouso/dotfiles.git $HOME
 
