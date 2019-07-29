@@ -3,73 +3,56 @@
 # disable sudo password timeout
 sudo sh -c 'echo "\nDefaults timestamp_timeout=-1">>/etc/sudoers'
 
-# terminator
-sudo add-apt-repository -y ppa:gnome-terminator
-
-# numix
-sudo add-apt-repository -y ppa:numix/ppa
-
-# sublime text 3
-sudo add-apt-repository -y ppa:webupd8team/sublime-text-3
-
-# atom text editor
-sudo add-apt-repository -y ppa:webupd8team/atom
-
-# nodejs - does apt-get update
-#LTS
-#curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-#Stable
-#curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
-#using nave.sh
-
 sudo apt-get update
 
 # setting msfonts default eula
+# used in ubuntu-restricted-extras
 echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 
-# setting mysql root password
-echo 'mysql-server mysql-server/root_password password rootroot' | sudo debconf-set-selections
-echo 'mysql-server mysql-server/root_password_again password rootroot' | sudo debconf-set-selections
-echo 'steam steam/question select I AGREE' | sudo debconf-set-selections
-echo 'steam steam/licence note ' | sudo debconf-set-selections
-
 # general
-sudo apt-get install -y chromium-browser vim vlc easytag terminator gdebi cifs-utils zsh ubuntu-restricted-extras
+sudo apt install -y vim gdebi cifs-utils zsh tlp tlp-rdw ubuntu-restricted-extras gnome-tweak-tool variety fonts-powerline
+
+sudo snap install spotify vlc chromium
+sudo snap install code --classic
 
 # dev
-sudo apt-get install -y mysql-server mysql-workbench meld git gitg git-flow openjdk-8-jre python-software-properties python python-pip mongodb-server atom sublime-text-installer
+sudo apt install -y git gitg meld default-jre python3
+
+# firefox developer
+wget "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=pt-BR" -O /tmp/firefox-developer.tar.bz2
+sudo tar -jxvf  /tmp/firefox-developer.tar.bz2 -C /opt/
+sudo mv /opt/firefox*/ /opt/firefox-developer
+sudo ln -sf /opt/firefox-developer/firefox /usr/bin/firefox-developer
+echo -e '[Desktop Entry]\n Version=59.0.3\n Encoding=UTF-8\n Name=Mozilla Firefox\n Comment=Navegador Web\n Exec=/opt/firefox-developer/firefox\n Icon=/opt/firefox-developer/browser/chrome/icons/default/default128.png\n Type=Application\n Categories=Network' | sudo tee /usr/share/applications/firefox-developer.desktop
+rm -rf /tmp/firefox-developer.tar.bz2
 
 # gaming
-sudo apt-get install -y playonlinux steam
+sudo apt install -y playonlinux steam
 
-# numix theme
-sudo apt-get install -y numix-gtk-theme numix-icon-theme-circle
-
-# google chrome
-wget -P /tmp https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
-wget -P /tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb /tmp/google-chrome-unstable_current_amd64.deb
-
-# slack
-wget -P /tmp https://slack-ssb-updates.global.ssl.fastly.net/linux_releases/slack-desktop-1.2.6-amd64.deb
-sudo dpkg -i /tmp/slack-desktop-1.2.6-amd64.deb
-
-# python virtualenv
-sudo pip install virtualenv
+# nvm
+export NVM_DIR="$HOME/.nvm" && (
+  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  cd "$NVM_DIR"
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+) && \. "$NVM_DIR/nvm.sh"
 
 #oh-my-zsh shell
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-# basher
-git clone https://github.com/basherpm/basher.git ~/.basher
-echo 'export PATH="$HOME/.basher/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(basher init -)"' >> ~/.zshrc
-source ~/.zshrc
+# zgen
+git clone https://github.com/tarjoilija/zgen.git $HOME/.zgen
 
-# nave.sh - Virtual Environments for Node
-basher install isaacs/nave
-nave install stable
-sudo env "PATH=$PATH" nave usemain stable
+# miniconda
+wget "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" -O /tmp/Miniconda3-latest-Linux-x86_64.sh
+bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/.miniconda
+conda init -q zsh
+conda config --set changeps1 False
+
+# config files
+git clone https://github.com/orapouso/dotfiles.git $HOME/dotfiles
+
+ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/variety/variety.conf ~/.config/variety/variety.conf
 
 # re-enable sudo password timeout
 sudo sed -i "/Defaults timestamp_timeout=-1/d" /etc/sudoers
